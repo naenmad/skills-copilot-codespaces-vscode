@@ -1,27 +1,61 @@
 // Create Web Server
 const express = require('express');
 const app = express();
-const port = 3000;
 
-// Create a JSON body parser
+// Create Middleware
 app.use(express.json());
 
-// Create a comments array
-const comments = [];
+// Create Array
+const comments = [
+    {message: 'Hello'},
+    {message: 'Hi'}
+];
 
-// Create a GET request to get all comments
+// Create Route
 app.get('/comments', (req, res) => {
-  res.json(comments);
+    res.send(comments);
 });
 
-// Create a POST request to add a comment
+// Create Route
 app.post('/comments', (req, res) => {
-  const { username, comment } = req.body;
-  comments.push({ username, comment });
-  res.json({ username, comment });
+    const comment = {message: req.body.message};
+    comments.push(comment);
+    res.send(comment);
 });
 
-// Listen to the port
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+// Create Route
+app.get('/comments/:id', (req, res) => {
+    const comment = comments[req.params.id];
+    res.send(comment);
 });
+
+// Create Route
+app.put('/comments/:id', (req, res) => {
+    const comment = comments[req.params.id];
+    comment.message = req.body.message;
+    res.send(comment);
+});
+
+// Create Route
+app.delete('/comments/:id', (req, res) => {
+    comments.splice(req.params.id, 1);
+    res.send(comments);
+});
+
+// Create Port
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
+});
+
+// Run Server
+// node comments.js
+// npm install nodemon -g
+// nodemon comments.js
+// npm install express
+// npm install body-parser
+// npm install nodemon -g
+// npm install express
+// npm install body-parser
+// nodemon comments.js
+// npm install express
+// npm install body-parser
