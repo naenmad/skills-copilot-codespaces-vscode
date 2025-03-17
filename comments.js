@@ -1,35 +1,46 @@
 // Create Web Server
 // Create a web server that listens on port 3000. When you navigate to http://localhost:3000/ in your browser, the server should respond with the following content:
+
+// <!DOCTYPE html>
 // <html>
 // <head>
-// <title>Comments</title>
+//   <title>Comments</title>
 // </head>
 // <body>
-// <h1>Comments</h1>
-// <ul>
-// <li>Comment 1</li>
-// <li>Comment 2</li>
-// <li>Comment 3</li>
-// </ul>
+//   <h1>Comments</h1>
+//   <ul>
+//     <li>Comment 1</li>
+//     <li>Comment 2</li>
+//     <li>Comment 3</li>
+//     <li>Comment 4</li>
+//     <li>Comment 5</li>
+//   </ul>
 // </body>
 // </html>
-// Use the fs module to read the contents of comments.html and serve it as the response.
 
 const http = require('http');
-const fs = require('fs');
 
 const server = http.createServer((req, res) => {
-  res.writeHead(200, { 'Content-Type': 'text/html' });
-  fs.readFile('comments.html', (err, data) => {
-    if (err) {
-      res.writeHead(404);
-      res.write('Error: File Not Found');
-    } else {
-      res.write(data);
-    }
-    res.end();
-  });
+  res.setHeader('Content-Type', 'text/html');
+  res.write('<!DOCTYPE html>');
+  res.write('<html>');
+  res.write('<head>');
+  res.write('<title>Comments</title>');
+  res.write('</head>');
+  res.write('<body>');
+  res.write('<h1>Comments</h1>');
+  res.write('<ul>');
+  res.write('<li>Comment 1</li>');
+  res.write('<li>Comment 2</li>');
+  res.write('<li>Comment 3</li>');
+  res.write('<li>Comment 4</li>');
+  res.write('<li>Comment 5</li>');
+  res.write('</ul>');
+  res.write('</body>');
+  res.write('</html>');
+  res.end();
 });
 
-server.listen(3000);
-console.log('Server listening on port 3000');
+server.listen(3000, () => {
+  console.log('Server is listening on port 3000');
+});
