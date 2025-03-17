@@ -1,31 +1,14 @@
-// Create Web Server
+// Create web server
+// Create a web server that listens on port 3000 and serves the comments.html file.
+
 const http = require('http');
+const fs = require('fs');
 
 const server = http.createServer((req, res) => {
-  res.setHeader('Content-Type', 'text/html');
-  res.write('<!DOCTYPE html>');
-  res.write('<html>');
-  res.write('<head>');
-  res.write('<title>Comments</title>');
-  res.write('</head>');
-  res.write('<body>');
-  res.write('<h1>Comments</h1>');
-  res.write('<ul>');
-  res.write('<li>Comment 1</li>');
-  res.write('<li>Comment 2</li>');
-  res.write('<li>Comment 3</li>');
-  res.write('<li>Comment 4</li>');
-  res.write('<li>Comment 5</li>');
-  res.write('</ul>');
-  res.write('</body>');
-  res.write('</html>');
-  res.end();
-});
-
-server.on('error', (error) => {
-  console.error('Server error:', error);
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    fs.createReadStream('./comments.html').pipe(res);
 });
 
 server.listen(3000, () => {
-  console.log('Server is listening on port 3000');
+    console.log('Server listening on port 3000');
 });
